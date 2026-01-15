@@ -1,3 +1,4 @@
+// Get computer's random choice using Math.random and Math.floor for accurate results
 function getComputerChoice() {
     const randomInt = Math.floor(Math.random() * 3);
     if (randomInt === 0) 
@@ -7,11 +8,13 @@ function getComputerChoice() {
     else return "scissors";
 }
 
+//Using prompt to get human player's choice and converting it to lowercase for consistency
 function getHumanChoice() {
     let choice = prompt("Make your choice: rock, paper, or scissors").toLowerCase();
     return choice;
 }
 
+// Function to play a single round of Rock, Paper, Scissors and determine the winner of that round
 function playRound(humanChoice, computerChoice) {
     switch (humanChoice) {
         case "rock":
@@ -36,6 +39,7 @@ function playRound(humanChoice, computerChoice) {
 
 }
 
+// Function to play a full game of 5 rounds and keep track of scores
 function playGame() {
 
     let humanScore = 0;
@@ -57,6 +61,7 @@ function playGame() {
     alert(getWinner(humanScore, computerScore));
 }
 
+// Function to determine the overall winner after 5 rounds
 function getWinner(humanScore, computerScore) {
     if (humanScore > computerScore) return "You beat the computer! Congratulations Human!"
     else return "The computer wins! Better luck next time!"
