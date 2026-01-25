@@ -4,6 +4,9 @@ body{
     background-color: #F2FAE3;
     margin: 0;
     padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 h1{
@@ -15,7 +18,7 @@ p,
     font-size: 15px;
     color: #1A0A36;
     margin: 0;
-    padding: auto;
+    padding: 0;
 }
 
 h2{
@@ -52,17 +55,30 @@ button:disabled {
 
 #result{
     font-size: 18px;
-    margin: 20px;
+    margin-top: 20px;
     background-color: #616161;
-    padding: 15px;
     border-radius: 5px;
+    padding: 20px;
     color: #F2FAE3;
+    height: 100px;
+    width: 300px;
+    text-align: center;
+    justify-content: center;
+    display: flex;
+    align-items: center;
 
 }
-
 
 div > p{
     text-align: center;
     color: #F2FAE3;
+    font-size: 18px;
+    font-weight: 600;
 }
 
+#playAgainBtn {
+    display: none;
+    margin-top: 20px;
+    background-color: #FD7812;
+    color: #F2FAE3;
+}

@@ -1,5 +1,6 @@
 let humanScore = 0;
 let computerScore = 0;
+let gameActive = true;
 
 // Get computer's random choice using Math.random and Math.floor for accurate results
 function getComputerChoice() {
@@ -28,23 +29,23 @@ function playRound(humanChoice) {
     resultDisplay.innerHTML = "";
     let resultRound = "";
 
-    if (humanScore === 5 || computerScore === 5) {
+    if (!gameActive) {
         return;
     }
     switch (humanChoice) {
         case "rock":
             if (computerChoice === "rock") {
-                displayMessage = "Human: Rock vs Computer: Rock. Draw!";
+                displayMessage = "Human: ✊ vs Computer: ✊ . Draw!";
                 resultRound = "Draw!";
             }
             else if (computerChoice === "paper") {
                 computerScore += 1;
-                displayMessage = "Human: Rock vs Computer: Paper. You Lose!";
+                displayMessage = "Human: ✊ vs Computer: ✋ . You Lose!";
                 resultRound = "Lose";
             }
             else {
                 humanScore += 1;
-                displayMessage = "Human: Rock vs Computer: Scissors. You Win!";
+                displayMessage = "Human: ✊ vs Computer: ✌️ . You Win!";
                 resultRound = "Win";
             }
         break;
@@ -52,16 +53,16 @@ function playRound(humanChoice) {
         case "paper":
             if (computerChoice === "rock") {
                 humanScore += 1;
-                displayMessage = "Human: Paper vs Computer: Rock. You Win!";
+                displayMessage = "Human: ✋ vs Computer: ✊ . You Win!";
                 resultRound = "Win";
             }
             else if (computerChoice === "paper") {
-                displayMessage = "Human: Paper vs Computer: Paper. Draw!";
+                displayMessage = "Human: ✋ vs Computer: ✋ . Draw!";
                 resultRound = "Draw!";
             }
             else {
                 computerScore += 1;
-                displayMessage = "Human: Paper vs Computer: Scissors. You Lose!";
+                displayMessage = "Human: ✋ vs Computer: ✌️ . You Lose!";
                 resultRound = "Lose";
             }
             break;
@@ -69,16 +70,16 @@ function playRound(humanChoice) {
         case "scissors":
             if (computerChoice === "rock") {
                 computerScore += 1;
-                displayMessage = "Human: Scissors vs Computer: Rock. You Lose!";
+                displayMessage = "Human: ✌️ vs Computer: ✊ . You Lose!";
                 resultRound = "Lose";
             }
             else if (computerChoice === "paper") {
                 humanScore += 1;
-                displayMessage = "Human: Scissors vs Computer: Paper. You Win!";
+                displayMessage = "Human: ✌️ vs Computer: ✋ . You Win!";
                 resultRound = "Win";
             }
             else {
-                displayMessage = "Human: Scissors vs Computer: Scissors. Draw!";
+                displayMessage = "Human: ✌️ vs Computer: ✌️ . Draw!";
                 resultRound = "Draw!";
             }
             break;
@@ -96,12 +97,19 @@ function playRound(humanChoice) {
 function getWinner() {
     if (humanScore === 5) {
         resultDisplay.innerHTML = "<h3>🏆 You won the game!</h3>";
-        disableButtons();
+        endGame();
     } else if (computerScore === 5) {
         resultDisplay.innerHTML = "<h3>💻 Computer won the game!</h3>";
-        disableButtons();
+        endGame();
     }
 }
+
+function endGame() {
+    gameActive = false;
+    disableButtons();
+    playAgainBtn.style.display = "inline-block";
+}   
+
 
 function disableButtons() {
     rockBtn.disabled = true;
@@ -112,6 +120,8 @@ function disableButtons() {
 function resetGame() {
     humanScore = 0;
     computerScore = 0;
+    gameActive = true;
+
     humanScoreDisplay.textContent = 0;
     computerScoreDisplay.textContent = 0;
     
