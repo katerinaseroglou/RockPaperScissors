@@ -8,6 +8,12 @@ This version has been **extended and refactored** to use **DOM manipulation** an
 
 ---
 
+## 🚀 Live Demo
+
+👉 **Play the game here:**  
+https://katerinaseroglou.github.io/RockPaperScissors/
+
+---
 
 ## 📌 Features
 
@@ -49,12 +55,5 @@ rps-ui/
 |-- index.html
 |-- style.css
 |-- script.js
-
----
-
-## 🚀 Live Demo
-
-👉 **Play the game here:**  
-https://katerinaseroglou.github.io/RockPaperScissors/
 
 ---
