@@ -45,6 +45,11 @@ button:hover{
     background-color: #7E3FF2;
 }
 
+button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
 #result{
     font-size: 18px;
     margin: 20px;
@@ -52,10 +57,12 @@ button:hover{
     padding: 15px;
     border-radius: 5px;
     color: #F2FAE3;
-    
+
 }
+
 
 div > p{
     text-align: center;
     color: #F2FAE3;
 }
+

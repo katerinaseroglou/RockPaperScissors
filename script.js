@@ -1,3 +1,6 @@
+let humanScore = 0;
+let computerScore = 0;
+
 // Get computer's random choice using Math.random and Math.floor for accurate results
 function getComputerChoice() {
     const randomInt = Math.floor(Math.random() * 3);
@@ -8,65 +11,122 @@ function getComputerChoice() {
     else return "scissors";
 }
 
-//Using prompt to get human player's choice and converting it to lowercase for consistency
-function getHumanChoice() {
-    let choice = prompt("Make your choice: rock, paper, or scissors").toLowerCase();
-    return choice;
-}
+const humanScoreDisplay = document.getElementById("humanScore");
+const computerScoreDisplay = document.getElementById("computerScore");
+const resultDisplay = document.getElementById("result");
 
-// Function to play a single round of Rock, Paper, Scissors and determine the winner of that round
-function playRound(humanChoice, computerChoice) {
+const rockBtn = document.getElementById("rockBtn");
+const paperBtn = document.getElementById("paperBtn");
+const scissorsBtn = document.getElementById("scissorsBtn");
+
+const playAgainBtn = document.getElementById("playAgainBtn");
+
+
+
+function playRound(humanChoice) {
+    const computerChoice = getComputerChoice();
+    resultDisplay.innerHTML = "";
+    let resultRound = "";
+
+    if (humanScore === 5 || computerScore === 5) {
+        return;
+    }
     switch (humanChoice) {
         case "rock":
-            if (computerChoice === "rock") return "Human: Rock vs Computer: Rock. Draw!";
-            else if (computerChoice === "paper") return "Human: Rock vs Computer: Paper.You Lose!";
-            else return "Human: Rock vs Computer: Scissors.You Win!";    
-            break;
+            if (computerChoice === "rock") {
+                displayMessage = "Human: Rock vs Computer: Rock. Draw!";
+                resultRound = "Draw!";
+            }
+            else if (computerChoice === "paper") {
+                computerScore += 1;
+                displayMessage = "Human: Rock vs Computer: Paper. You Lose!";
+                resultRound = "Lose";
+            }
+            else {
+                humanScore += 1;
+                displayMessage = "Human: Rock vs Computer: Scissors. You Win!";
+                resultRound = "Win";
+            }
+        break;
 
         case "paper":
-            if (computerChoice === "rock") return "Human: Paper vs Computer: Rock.You Win!";
-            else if (computerChoice === "paper") return "Human: Paper vs Computer: Paper.Draw!";
-            else return "Human: Paper vs Computer: Scissors.You Lose!";    
+            if (computerChoice === "rock") {
+                humanScore += 1;
+                displayMessage = "Human: Paper vs Computer: Rock. You Win!";
+                resultRound = "Win";
+            }
+            else if (computerChoice === "paper") {
+                displayMessage = "Human: Paper vs Computer: Paper. Draw!";
+                resultRound = "Draw!";
+            }
+            else {
+                computerScore += 1;
+                displayMessage = "Human: Paper vs Computer: Scissors. You Lose!";
+                resultRound = "Lose";
+            }
             break;
 
         case "scissors":
-            if (computerChoice === "rock") return "Human: Scissors vs Computer: Rock.You Lose!";
-            else if (computerChoice === "paper") return "Human: Scissors vs Computer: Paper.You Win!";
-            else return "Human: Scissors vs Computer: Scissors.Draw!";    
+            if (computerChoice === "rock") {
+                computerScore += 1;
+                displayMessage = "Human: Scissors vs Computer: Rock. You Lose!";
+                resultRound = "Lose";
+            }
+            else if (computerChoice === "paper") {
+                humanScore += 1;
+                displayMessage = "Human: Scissors vs Computer: Paper. You Win!";
+                resultRound = "Win";
+            }
+            else {
+                displayMessage = "Human: Scissors vs Computer: Scissors. Draw!";
+                resultRound = "Draw!";
+            }
             break;
     }
+    // Update score on screen
+    humanScoreDisplay.textContent = humanScore;
+    computerScoreDisplay.textContent = computerScore;
 
+    // Show result with color
+    resultDisplay.innerHTML = `<p class="${resultRound}">${displayMessage}</p>`;
 
+    getWinner();
 }
 
-// Function to play a full game of 5 rounds and keep track of scores
-function playGame() {
-
-    let humanScore = 0;
-    let computerScore = 0;
-
-
-    for (let i=0; i<5; i++) {
-        let humanChoice = getHumanChoice();
-        let computerChoice = getComputerChoice();
-        let result = playRound(humanChoice, computerChoice);
-        alert(result);
-
-        if (result.toLowerCase().includes("win")) 
-            humanScore=+1;
-        else if (result.toLowerCase().includes("lose")) 
-            computerScore+=1;
+function getWinner() {
+    if (humanScore === 5) {
+        resultDisplay.innerHTML = "<h3>🏆 You won the game!</h3>";
+        disableButtons();
+    } else if (computerScore === 5) {
+        resultDisplay.innerHTML = "<h3>💻 Computer won the game!</h3>";
+        disableButtons();
     }
-
-    alert(getWinner(humanScore, computerScore));
 }
 
-// Function to determine the overall winner after 5 rounds
-function getWinner(humanScore, computerScore) {
-    if (humanScore > computerScore) return "You beat the computer! Congratulations Human!"
-    else return "The computer wins! Better luck next time!"
+function disableButtons() {
+    rockBtn.disabled = true;
+    paperBtn.disabled = true;
+    scissorsBtn.disabled = true;
 }
 
+function resetGame() {
+    humanScore = 0;
+    computerScore = 0;
+    humanScoreDisplay.textContent = 0;
+    computerScoreDisplay.textContent = 0;
+    
 
+    resultDisplay.innerHTML = "<p>First to 5 wins! Good luck!</p>";
 
-playGame();
+    rockBtn.disabled = false;
+    paperBtn.disabled = false;
+    scissorsBtn.disabled = false;
+    playAgainBtn.style.display = "none";
+}
+
+rockBtn.addEventListener("click", () => playRound("rock"));
+paperBtn.addEventListener("click", () => playRound("paper"));
+scissorsBtn.addEventListener("click", () => playRound("scissors"));
+
+playAgainBtn.addEventListener("click", resetGame);
+
